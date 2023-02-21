@@ -8,11 +8,18 @@ function renderProductItem(itemData) {
 
 const Products = ({ products }) => {
   return (
-    <FlatList
-      data={products}
-      renderItem={renderProductItem}
-      keyExtractor={(item) => item.id}
-    />
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <FlatList
+        data={products}
+        renderItem={renderProductItem}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
   );
 };
 

@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import ProductsContextProvider from "./store/products-context";
 import ReadMoreScreen from "./screens/ReadMore";
 import IconButton from "./components/UI/IconButton";
+import CartContextProvider from "./store/cart-context";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -71,17 +72,25 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <ProductsContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="ShopOverview"
-              component={ShopOverview}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="CartScreen" component={CartScreen} />
-            <Stack.Screen name="ReadMoreScreen" component={ReadMoreScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <CartContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="ShopOverview"
+                component={ShopOverview}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="CartScreen"
+                component={CartScreen}
+                options={{
+                  title: "Cart",
+                }}
+              />
+              <Stack.Screen name="ReadMoreScreen" component={ReadMoreScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </CartContextProvider>
       </ProductsContextProvider>
     </>
   );

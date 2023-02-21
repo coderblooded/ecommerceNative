@@ -1,6 +1,7 @@
-import { View, StyleSheet, Text } from "react-native";
-import { useState } from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
+import { useContext, useState } from "react";
 import { CartContext } from "../store/cart-context";
+import { quantityCount, shorten } from "../util/functions";
 
 const CartScreen = () => {
   const { state, dispatch } = useContext(CartContext);
@@ -8,6 +9,7 @@ const CartScreen = () => {
   return (
     <View style={styles.cartTable}>
       <View style={styles.cartTableHeader}>
+        <Text style={styles.tableHeaderTitle}>Image</Text>
         <Text style={styles.tableHeaderTitle}>Product</Text>
         <Text style={styles.tableHeaderTitle}>Price</Text>
         <Text style={styles.tableHeaderTitle}>Count</Text>
@@ -16,11 +18,22 @@ const CartScreen = () => {
 
       <View style={styles.cartTableBody}>
         {state.selectedItems.map((item) => (
-          <View style={styles.cartTableData}>
-            <Text style={styles.cartTableDataText}>{item.title}</Text>
-            <Text style={styles.cartTableDataText}>{item.price}</Text>
-            <Text style={styles.cartTableDataText}>{item.count}</Text>
-            <Text style={styles.cartTableDataText}>{item.price}</Text>
+          <View key={item.id} style={styles.cartTableData}>
+            <View style={styles.cartTableDataImage}>
+              <Image
+                source={{ uri: item.image }}
+                style={{ width: 40, height: 40 }}
+              />
+            </View>
+
+            <Text style={styles.cartTableDataText}>{shorten(item.title)}</Text>
+            <Text style={styles.cartTableDataText}>${item.price}</Text>
+            <Text style={styles.cartTableDataText}>
+              {quantityCount(state, item.id)}
+            </Text>
+            <Text style={styles.cartTableDataText}>
+              ${item.price * quantityCount(state, item.id)}
+            </Text>
           </View>
         ))}
         {/* // Loop */}
@@ -50,10 +63,15 @@ const styles = StyleSheet.create({
   },
   cartTableData: {
     flexDirection: "row",
+    marginVertical: 12,
   },
   cartTableDataText: {
     width: 75,
     textAlign: "center",
+  },
+  cartTableDataImage: {
+    width: 40,
+    height: 40,
   },
 });
 

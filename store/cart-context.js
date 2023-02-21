@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
-import { createContext, useState } from "react";
+import { createContext, useReducer, useState } from "react";
 
 export const CartContext = createContext();
 
@@ -82,11 +82,11 @@ const cartReducer = (state = initialState, action) => {
   }
 };
 
-const CartContextProvider = () => {
-  const [cartState, dispatch] = useReducer(cartReducer, initialState);
+const CartContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
   return (
-    <CartContext.Provider value={{ cartState, dispatch }}>
+    <CartContext.Provider value={{ state, dispatch }}>
       {children}
     </CartContext.Provider>
   );
