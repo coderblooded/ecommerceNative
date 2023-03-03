@@ -9,6 +9,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-native-fontawesome": "^0.3.0",
     "@react-navigation/bottom-tabs": "^6.5.5",
     "@react-navigation/native": "^6.1.4",
     "@react-navigation/native-stack": "^6.9.10",
@@ -18,6 +21,7 @@
     "react": "18.1.0",
     "react-native": "0.70.5",
     "react-native-easy-grid": "^0.2.2",
+    "react-native-svg": "^13.8.0",
     "react-native-table-component": "^1.2.2"
   },
   "devDependencies": {

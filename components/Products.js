@@ -10,14 +10,20 @@ const Products = ({ products }) => {
   return (
     <View
       style={{
-        justifyContent: "center",
-        alignItems: "center",
+        marginVertical: 20,
       }}
     >
       <FlatList
         data={products}
         renderItem={renderProductItem}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        // scrollEnabled={false}
       />
     </View>
   );

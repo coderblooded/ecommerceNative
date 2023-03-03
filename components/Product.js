@@ -25,73 +25,87 @@ const Product = ({ id, title, price, category, image }) => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{shorten(title)}</Text>
-        <Text style={styles.price}>${price}</Text>
         <Text style={styles.category}>Category: {category}</Text>
-        <Button
+        <Text style={styles.title}>{shorten(title)}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.price}>${price}</Text>
+          <View style={styles.buttons}>
+            {quantityCount(state, productData.id) === 1 && (
+              <Button
+                onPress={() =>
+                  dispatch({ type: "REMOVE_ITEM", payload: productData })
+                }
+                style={{ marginTop: 10, width: "40%" }}
+                buttonColor={{ backgroundColor: "#c0392b" }}
+              >
+                <Ionicons name="trash" size={15} color="white" />
+              </Button>
+            )}
+            {quantityCount(state, productData.id) > 1 && (
+              <Button
+                onPress={() =>
+                  dispatch({ type: "DECREASE", payload: productData })
+                }
+                style={{ marginTop: 10, width: "40%" }}
+                buttonColor={{ backgroundColor: "#c0392b" }}
+              >
+                -
+              </Button>
+            )}
+            {quantityCount(state, productData.id) > 0 && (
+              <View style={styles.counter}>
+                <Text>{quantityCount(state, productData.id)}</Text>
+              </View>
+            )}
+            {isInCart(state, productData.id) ? (
+              <Button
+                onPress={() =>
+                  dispatch({ type: "INCREASE", payload: productData })
+                }
+                style={{ marginTop: 10, width: "40%" }}
+                buttonColor={{ backgroundColor: "#3498db" }}
+              >
+                +
+              </Button>
+            ) : (
+              <Button
+                onPress={() =>
+                  dispatch({ type: "ADD_ITEM", payload: productData })
+                }
+                style={{
+                  width: 35,
+                }}
+                buttonColor={{
+                  backgroundColor: "#f1f2f6",
+                  borderRadius: 50,
+                }}
+                buttonTextColor={{
+                  color: "black",
+                  fontWeight: "bold",
+                  fontSize: 15,
+                }}
+              >
+                +
+              </Button>
+            )}
+          </View>
+        </View>
+        {/* <Button
           onPress={readMoreHandler}
           style={{
             marginTop: 10,
             fontWeight: "bold",
+            width: 80,
           }}
         >
           Read More
-        </Button>
-        <View style={styles.buttons}>
-          {quantityCount(state, productData.id) === 1 && (
-            <Button
-              onPress={() =>
-                dispatch({ type: "REMOVE_ITEM", payload: productData })
-              }
-              style={{ marginTop: 10, width: "40%" }}
-              buttonColor={{ backgroundColor: "#c0392b" }}
-            >
-              <Ionicons name="trash" size={15} color="white" />
-            </Button>
-          )}
-          {quantityCount(state, productData.id) > 1 && (
-            <Button
-              onPress={() =>
-                dispatch({ type: "DECREASE", payload: productData })
-              }
-              style={{ marginTop: 10, width: "40%" }}
-              buttonColor={{ backgroundColor: "#c0392b" }}
-            >
-              -
-            </Button>
-          )}
-          {quantityCount(state, productData.id) > 0 && (
-            <View style={styles.counter}>
-              <Text>{quantityCount(state, productData.id)}</Text>
-            </View>
-          )}
-          {isInCart(state, productData.id) ? (
-            <Button
-              onPress={() =>
-                dispatch({ type: "INCREASE", payload: productData })
-              }
-              style={{ marginTop: 10, width: "40%" }}
-              buttonColor={{ backgroundColor: "#3498db" }}
-            >
-              +
-            </Button>
-          ) : (
-            <Button
-              onPress={() =>
-                dispatch({ type: "ADD_ITEM", payload: productData })
-              }
-              style={{
-                marginTop: 10,
-                width: "80%",
-              }}
-              buttonColor={{
-                backgroundColor: "#2980b9",
-              }}
-            >
-              Add to Cart
-            </Button>
-          )}
-        </View>
+        </Button> */}
       </View>
     </View>
   );
@@ -99,28 +113,30 @@ const Product = ({ id, title, price, category, image }) => {
 
 const styles = StyleSheet.create({
   productDiv: {
-    marginVertical: 24,
+    width: 160,
+    marginVertical: 16,
+    marginHorizontal: 6,
     justifyContent: "center",
     alignItems: "center",
-    elevation: 9,
+    elevation: 3,
     backgroundColor: "white",
-    paddingVertical: 24,
+    paddingVertical: 30,
     paddingHorizontal: 10,
+    borderRadius: 23,
   },
   containerOfProductImage: {
     marginBottom: 10,
   },
-  title: { textAlign: "center", fontSize: 18, fontWeight: "bold" },
-  price: { textAlign: "center", marginTop: 5, color: "green" },
+  title: { marginTop: 4, fontSize: 14, fontWeight: "bold" },
+  price: { marginTop: 5, color: "green" },
   category: {
-    textAlign: "center",
     marginTop: 5,
-    fontSize: 14,
+    fontSize: 10,
     color: "gray",
   },
   productImage: {
-    width: 250,
-    height: 250,
+    width: 140,
+    height: 140,
     resizeMode: "center",
     borderRadius: 24,
     padding: 8,
@@ -132,7 +148,9 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flexDirection: "row",
-    width: "100%",
+    // width: "100%",
+    justifyContent: "flex-end",
+    marginTop: 10,
   },
 });
 
