@@ -16,7 +16,12 @@ const Product = ({ id, title, price, category, image }) => {
     });
   };
   return (
-    <View style={styles.productDiv}>
+    <Pressable
+      onPress={readMoreHandler}
+      style={({ pressed }) => [
+        pressed ? [styles.productDiv, styles.pressed] : [styles.productDiv],
+      ]}
+    >
       <View style={styles.containerOfProductImage}>
         <Image
           style={styles.productImage}
@@ -41,10 +46,17 @@ const Product = ({ id, title, price, category, image }) => {
                 onPress={() =>
                   dispatch({ type: "REMOVE_ITEM", payload: productData })
                 }
-                style={{ marginTop: 10, width: "40%" }}
-                buttonColor={{ backgroundColor: "#c0392b" }}
+                style={{ width: 20 }}
+                buttonColor={{
+                  backgroundColor: "#ff7979",
+                  borderRadius: 50,
+                  padding: 5,
+                }}
+                pressedStyle={{
+                  opacity: 0.7,
+                }}
               >
-                <Ionicons name="trash" size={15} color="white" />
+                <Ionicons name="trash" size={10} color="white" />
               </Button>
             )}
             {quantityCount(state, productData.id) > 1 && (
@@ -52,15 +64,24 @@ const Product = ({ id, title, price, category, image }) => {
                 onPress={() =>
                   dispatch({ type: "DECREASE", payload: productData })
                 }
-                style={{ marginTop: 10, width: "40%" }}
-                buttonColor={{ backgroundColor: "#c0392b" }}
+                style={{ width: 20 }}
+                buttonColor={{
+                  backgroundColor: "#ff7979",
+                  borderRadius: 50,
+                  paddingVertical: 2,
+                }}
+                pressedStyle={{
+                  opacity: 0.7,
+                }}
               >
                 -
               </Button>
             )}
             {quantityCount(state, productData.id) > 0 && (
               <View style={styles.counter}>
-                <Text>{quantityCount(state, productData.id)}</Text>
+                <Text style={{ fontSize: 12 }}>
+                  {quantityCount(state, productData.id)}
+                </Text>
               </View>
             )}
             {isInCart(state, productData.id) ? (
@@ -68,8 +89,19 @@ const Product = ({ id, title, price, category, image }) => {
                 onPress={() =>
                   dispatch({ type: "INCREASE", payload: productData })
                 }
-                style={{ marginTop: 10, width: "40%" }}
-                buttonColor={{ backgroundColor: "#3498db" }}
+                style={{ width: 20 }}
+                buttonColor={{
+                  backgroundColor: "#74b9ff",
+                  borderRadius: 50,
+                  paddingVertical: 2,
+                }}
+                buttonTextColor={{
+                  fontWeight: "bold",
+                  fontSize: 12,
+                }}
+                pressedStyle={{
+                  opacity: 0.7,
+                }}
               >
                 +
               </Button>
@@ -84,11 +116,15 @@ const Product = ({ id, title, price, category, image }) => {
                 buttonColor={{
                   backgroundColor: "#f1f2f6",
                   borderRadius: 50,
+                  padding: 5,
                 }}
                 buttonTextColor={{
                   color: "black",
                   fontWeight: "bold",
                   fontSize: 15,
+                }}
+                pressedStyle={{
+                  backgroundColor: "#bdc3c7",
                 }}
               >
                 +
@@ -107,7 +143,7 @@ const Product = ({ id, title, price, category, image }) => {
           Read More
         </Button> */}
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -142,15 +178,19 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   counter: {
-    width: "10%",
     alignItems: "center",
     justifyContent: "center",
+    marginHorizontal: 3,
   },
   buttons: {
     flexDirection: "row",
     // width: "100%",
     justifyContent: "flex-end",
     marginTop: 10,
+    alignItems: "center",
+  },
+  pressed: {
+    opacity: 0.7,
   },
 });
 

@@ -11,6 +11,7 @@ import ProductsContextProvider from "./store/products-context";
 import ReadMoreScreen from "./screens/ReadMore";
 import IconButton from "./components/UI/IconButton";
 import CartContextProvider from "./store/cart-context";
+import CategoryScreen from "./screens/CategoryScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -85,6 +86,13 @@ export default function App() {
                 component={CartScreen}
                 options={{
                   title: "Cart",
+                }}
+              />
+              <Stack.Screen
+                name="CategoryScreen"
+                component={CategoryScreen}
+                options={{
+                  title: "Category",
                 }}
               />
               <Stack.Screen name="ReadMoreScreen" component={ReadMoreScreen} />

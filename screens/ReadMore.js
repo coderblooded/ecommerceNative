@@ -38,7 +38,12 @@ const ReadMore = ({ route, navigation }) => {
           </View>
           <Button
             onPress={() => navigation.goBack()}
-            style={{ width: 230, marginTop: 10, marginBottom: 30 }}
+            style={{
+              width: 230,
+              marginTop: 14,
+              marginBottom: 30,
+            }}
+            buttonColor={{ paddingVertical: 4 }}
           >
             Back
           </Button>

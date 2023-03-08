@@ -1,4 +1,11 @@
-import { View, StyleSheet, Text, FlatList } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { useState } from "react";
 import Product from "./Product";
 
@@ -10,7 +17,8 @@ const Products = ({ products }) => {
   return (
     <View
       style={{
-        marginVertical: 20,
+        marginTop: 20,
+        marginBottom: 40,
       }}
     >
       <FlatList
@@ -18,12 +26,10 @@ const Products = ({ products }) => {
         renderItem={renderProductItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
-          flexDirection: "row",
-          flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
         }}
-        // scrollEnabled={false}
+        numColumns={2}
       />
     </View>
   );
